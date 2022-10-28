@@ -18,6 +18,10 @@ spec:
       containers:
       - name: simple-web
         image: 'acrinterview.azurecr.io/simple-web:latest'
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
 
 ---
 apiVersion: v1
@@ -45,11 +49,20 @@ metadata:
 spec:
   scaleTargetRef:
     name: simple-web
-  minReplicaCount: 1  
+  minReplicaCount: 1
+  maxReplicaCount: 5  
   triggers:
   - type: cron
     metadata:
-      timezone: Israel
+      timezone: Asia/Kolkata
       start: 0 8 * * *
-      end: 0 12 * * *
+      end: 0 17 * * *
       desiredReplicas: "3"
+  - type: cpu
+    metricType: Utilization 
+    metadata:
+      value: "70"
+  - type: memory
+    metricType: Utilization
+    metadata:
+      value: "70"	
