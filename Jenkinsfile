@@ -8,7 +8,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'My Name is Pavel'
-                sh 'helm lint ./deploy'
+                sh 'helm lint ./charts/deploy'
             }
         }
     }
