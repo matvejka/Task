@@ -52,8 +52,8 @@ spec:
   - host: pavel.testmywork.com
     http:
       paths:
-      - path: /
-        pathType: Prefix
+      - path: /pavel
+        pathType: Exact
         backend:
           service:
             name: simple-web
