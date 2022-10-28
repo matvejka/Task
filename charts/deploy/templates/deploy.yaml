@@ -19,7 +19,7 @@ spec:
       - name: simple-web
         image: 'acrinterview.azurecr.io/simple-web:latest'
 
-___
+---
 apiVersion: v1
 kind: Service
 metadata:
