@@ -60,9 +60,9 @@ spec:
       desiredReplicas: "3"
   - type: cpu 
     metadata:
-	  type: Utilization
+      type: Utilization
       value: "70"
   - type: memory
     metadata:
-	  type: Utilization
+      type: Utilization
       value: "70"
