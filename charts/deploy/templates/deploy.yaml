@@ -38,7 +38,27 @@ spec:
       name: 80tcp
   selector:
     app: simple-web
-  type: LoadBalancer
+  type: ClusterIP
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pavel-ingress
+  namespace: pavel
+spec:
+  ingressClassName: nginx   
+  rules:	
+  - host: pavel.testmywork.com
+    http:
+      paths:
+      - path: /pavel
+        pathType: Prefix
+        backend:
+          service:
+            name: simple-web
+            port:
+              number: 80
 
 ---
 apiVersion: keda.sh/v1alpha1
