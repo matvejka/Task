@@ -58,11 +58,11 @@ spec:
       start: 0 8 * * *
       end: 0 17 * * *
       desiredReplicas: "3"
-  - type: cpu
-    metricType: Utilization 
+  - type: cpu 
     metadata:
+	  type: Utilization
       value: "70"
   - type: memory
-    metricType: Utilization
     metadata:
-      value: "70"	
+	  type: Utilization
+      value: "70"
