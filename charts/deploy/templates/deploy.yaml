@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: simple-web
-  namespace: pavel
+  name: {{ .Values.Name }}
+  namespace: {{ .Values.namespace }}
   labels:
-    app: simple-web
+    app: {{ .Values.Name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: simple-web
+      app: {{ .Values.Name }}
   template:
     metadata:
       labels:
-        app: simple-web
+        app: {{ .Values.Name }}
     spec:
       containers:
-      - name: simple-web
+      - name: {{ .Values.Name }}
         image: 'acrinterview.azurecr.io/simple-web:latest'
         resources:
           limits:
@@ -27,16 +27,17 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: simple-web
+  name: {{ .Values.Name }}
+  namespace: {{ .Values.namespace }}
   labels:
-    app: simple-web
+    app: {{ .Values.Name }}
 spec:
   ports:
     - targetPort: 80
       port: 80
       protocol: TCP
   selector:
-    app: simple-web
+    app: {{ .Values.Name }}
   type: ClusterIP
 
 ---
@@ -46,7 +47,7 @@ metadata:
   name: pavel-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
-  namespace: pavel
+  namespace: {{ .Values.namespace }}
 spec:
   ingressClassName: nginx   
   rules:	
@@ -57,7 +58,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: simple-web
+            name: {{ .Values.Name }}
             port:
               number: 80
 
@@ -66,18 +67,18 @@ apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
   name: cron-scaledobject
-  namespace: pavel
+  namespace: {{ .Values.namespace }}
 spec:
   scaleTargetRef:
-    name: simple-web
+    name: {{ .Values.Name }}
   minReplicaCount: 1
   maxReplicaCount: 5  
   triggers:
   - type: cron
     metadata:
-      timezone: Asia/Kolkata
+      timezone: Israel
       start: 0 8 * * *
-      end: 0 17 * * *
+      end: 0 12 * * *
       desiredReplicas: "3"
   - type: cpu 
     metadata:
