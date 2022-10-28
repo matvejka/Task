@@ -4,7 +4,7 @@ metadata:
   name: simple-web
   namespace: pavel
   labels:
-  app: simple-web
+    app: simple-web
 spec:
   replicas: 1
   selector:
