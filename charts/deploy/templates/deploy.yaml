@@ -52,7 +52,7 @@ spec:
   - host: pavel.testmywork.com
     http:
       paths:
-      - path: /pavel
+      - path: /
         pathType: Prefix
         backend:
           service:
