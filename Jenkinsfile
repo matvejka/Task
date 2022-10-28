@@ -10,6 +10,7 @@ pipeline {
                 withKubeConfig(caCertificate: '', clusterName: 'devops-interview-aks', contextName: '', credentialsId: 'PavelConf', namespace: 'pavel', serverUrl: 'https://devops-interview-0b426a9d.hcp.westeurope.azmk8s.io:443'){
                     sh 'helm list'
                     sh 'helm lint ./charts/deploy'
+                    sh 'helm upgrade --install pavel-deploy ./charts/deploy --namespace pavel'
                 }
             }
         }
