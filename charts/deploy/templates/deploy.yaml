@@ -45,6 +45,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: pavel-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target
+    nginx.ingress.kubernetes.io/use-regex
   namespace: pavel
 spec:
   ingressClassName: nginx   
@@ -53,7 +56,7 @@ spec:
     http:
       paths:
       - path: /pavel
-        pathType: Exact
+        pathType: Prefix
         backend:
           service:
             name: simple-web
