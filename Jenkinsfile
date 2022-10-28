@@ -7,8 +7,10 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                echo 'My Name is Pavel'
-                sh 'helm lint ./charts/deploy'
+                withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'devops-interview-aks', contextName: '', credentialsId: 'PavelKube', namespace: 'pavel', serverUrl: 'https://devops-interview-0b426a9d.hcp.westeurope.azmk8s.io:443']]){
+                    sh 'helm list'
+                    sh 'helm lint ./charts/deploy'
+                }
             }
         }
     }
