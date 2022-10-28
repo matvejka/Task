@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-web
+  namespace: pavel
+  labels:
+  app: simple-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simple-web
+  template:
+    metadata:
+      labels:
+        app: simple-web
+    spec:
+      containers:
+      - name: simple-web
+        image: 'acrinterview.azurecr.io/simple-web:latest'
+
+___
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-web
+  labels:
+    app: simple-web
+spec:
+  ports:
+    - targetPort: 80
+      port: 80
+      protocol: TCP
+      name: 80tcp
+  selector:
+    app: simple-web
+  type: LoadBalancer      
