@@ -45,6 +45,7 @@ metadata:
 spec:
   scaleTargetRef:
     name: simple-web
+  minReplicaCount: 1  
   triggers:
   - type: cron
     metadata:
