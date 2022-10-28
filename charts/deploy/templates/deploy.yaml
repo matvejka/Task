@@ -34,4 +34,21 @@ spec:
       name: 80tcp
   selector:
     app: simple-web
-  type: LoadBalancer      
+  type: LoadBalancer
+
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: cron-scaledobject
+  namespace: pavel
+spec:
+  scaleTargetRef:
+    name: simple-web
+  triggers:
+  - type: cron
+    metadata:
+      timezone: Israel
+      start: 0 8 * * *
+      end: 0 18 * * *
+      desiredReplicas: "3"
